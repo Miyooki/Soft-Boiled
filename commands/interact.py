@@ -1,5 +1,5 @@
 
-async def request(ws, msg):
+async def say(ws, msg):
     """
     Sends requests to websocket.
     """
@@ -13,5 +13,5 @@ async def challenge(ws, user, mode="gen7ou"):
     Defaults to Gen 7 OU.
     """
     msg = "/challenge {}, {}".format(user, mode)
-    await request(ws, msg)
+    await say(ws, msg)
 
