@@ -1,4 +1,4 @@
-# Soft Boiled
+# Soft-Boiled Showdown Bot
 A Pokemon Showdown battle bot trained using reinforcement learning.
 
 Developed in Python 3.6.x.

@@ -9,14 +9,25 @@ import json
 
 class PokeEnv(gym.Env):
 
-    metadata = ("render.modes": ["human"])
+    metadata = ({"render.modes": ["human"]})
+    ACTIONS = ["Move1", "Move2", "Move3", "Move4",
+                "Mega-Move1", "Mega-Move2", "Mega-Move3", "Mega-Move4",
+                "Z-Move1", "Z-Move2", "Z-Move3", "Z-Move4",
+                "Switch1", "Switch2", "Switch3", "Switch4", "Switch5"]
 
-    ACTION = [""]
     def __init__(self):
         """
         """
-        self.action_space = spaces.Discrete()
-        self.observation_space = spaces.Discrete()
+        logging.info("---Soft-Boiled v0.0.1---")
+        self.current_step = -1
+
+        self.action_space = spaces.Discrete(len(ACTIONS)) # Number of possible actions.
+        self.observation_space = spaces.Dict({
+            "self_health":spaces.Box([0.0], [100.0], )
+        })
+
+
+        self.current_episode = -1
 
         self.seed()
         self.reset()
@@ -33,15 +44,31 @@ class PokeEnv(gym.Env):
         episode_over = self.status != hfo_py.IN_GAME
         return ob, reward, episode_over, {}
         """
+
+        self.current_step += 1
+        self.
+
+        remaining_steps = 0
         return
     
     def reset(self):
         """
         """
-        TODO
+        # TODO: Make it start a new battle.
+
+    def seed(self, seed)
+    def _make_move(self, move):
+        """
+        """
+        return
+    
+    def _get_state(self):
+        """
+        """
+        # TODO
 
     def render(self, mode="human", close=False):
         """
         """
-        TODO
+        return
 

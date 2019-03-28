@@ -1,19 +1,31 @@
 step() accepts actions and returns four values:
-
-observation (object)
-
-reward (float)
-
-done (boolean)
-
-info (dict)
-
+- observation (object)
+- reward (float)
+- done (boolean)
+- info (dict)
 
 define an action space and an observation space
 
+observation space may include:
+- self pokemon hp
+- self party pokemon hp
+- opponent current hp
+- opponent party pokemon hp
+
+
 define the reward (win is 1, loss is 0?)
-- do we take into account hp delta for reward?
+- do we take into account hp delta between self and opponent for reward?
 
 implement mega and zmove in action space
 
+implement past memory (pokemon moves, items, abilities, stats?)
+
+implement pokemon data (pokemon stats, move power, item effects?)
+
 render...?
+
+action space:
+- 4 moves
+- 5 switches (assuming using 6 pokemons)
+- 1 mega (can combine with moves x 4)
+- 1 z-move (can combine with moves x 4)

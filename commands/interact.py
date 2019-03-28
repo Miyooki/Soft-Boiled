@@ -10,12 +10,13 @@ async def say(ws, msg, prefix="", suffix=""):
     print(">> {}".format(out))
     await ws.send(out)
 
-async def challenge(ws, user, mode="gen7ou"):
+async def challenge(ws, user, mode="gen7randombattle"):
     """
     Challenge another player in specified format.
-    Defaults to Gen 7 OU.
+    Defaults to Gen 7 Random Battle.
     """
     msg = "/challenge {}, {}".format(user, mode)
+    print(msg)
     await say(ws, msg)
 
 async def makemove(ws, tag, move, turns):
@@ -30,3 +31,8 @@ async def makeswitch(ws, tag, switch, turns):
     msg = "/choose switch {}".format(switch)
     await say(ws, msg, tag)
 
+async def leaveroom(ws, tag):
+    """
+    """
+    msg = "/leave"
+    await say(ws, msg, tag)
