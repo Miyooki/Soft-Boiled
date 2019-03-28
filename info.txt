@@ -1,0 +1,19 @@
+step() accepts actions and returns four values:
+
+observation (object)
+
+reward (float)
+
+done (boolean)
+
+info (dict)
+
+
+define an action space and an observation space
+
+define the reward (win is 1, loss is 0?)
+- do we take into account hp delta for reward?
+
+implement mega and zmove in action space
+
+render...?
