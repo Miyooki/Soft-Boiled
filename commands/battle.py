@@ -21,16 +21,25 @@ class Mew:
 # Global Variables
 PLAYER_ID = None
 CURRENT_POKE = None
+TAG_CONFIRM = None
 POKE_TEAM = []
 POKE_ALIVE = []
 ALL_MOVES = []
 USABLE_MOVES = []
-
+    
 async def battle_parser(ws, msg):
-    global PLAYER_ID, CURRENT_POKE, POKE_TEAM, POKE_ALIVE, ALL_MOVES, USABLE_MOVES
+    """
+    Parses through all battle text and decides on what to do.
+    """
+    global PLAYER_ID, CURRENT_POKE, TAG_CONFIRM, POKE_TEAM, POKE_ALIVE, ALL_MOVES, USABLE_MOVES
     turns = 0 # Fix turns.
     msg = msg.splitlines()
     tag = msg[0].split("|")[0][1:] # Get the battle tag ID.
+    if TAG_CONFIRM == None: 
+        TAG_CONFIRM = tag
+    elif TAG_CONFIRM != tag: # Check if it is a new battle.
+        reset_globals()
+
     for state in msg[1:]:
         state = state.split("|")
 
@@ -62,7 +71,7 @@ async def battle_parser(ws, msg):
                 if "active" in battle_data: # Get non-disabled moves.
                     USABLE_MOVES = [] # Clear moves memory.
                     for move in battle_data["active"][0]["moves"]:
-                        if move["disabled"] == False:
+                        if "disabled" not in move or move["disabled"] == False: # Edge case for Outrage.
                             USABLE_MOVES.append(move["id"])
 
         elif state[1] == "turn":
@@ -80,3 +89,15 @@ async def battle_parser(ws, msg):
             # A message was sent or received.
             # await say(ws, "don't talk to me kiddo.", tag)
             continue
+
+def reset_globals():
+    """
+    Resets the global variables.
+    """
+    PLAYER_ID = None
+    CURRENT_POKE = None
+    TAG_CONFIRM = None
+    POKE_TEAM = []
+    POKE_ALIVE = []
+    ALL_MOVES = []
+    USABLE_MOVES = []

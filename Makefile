@@ -1,6 +1,6 @@
 
-defend:
+def:
 	python login.py
 
-attack:
+atk:
 	python login.py 1 snowbot_2 snowsnow123

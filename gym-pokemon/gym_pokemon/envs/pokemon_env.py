@@ -56,13 +56,17 @@ class PokeEnv(gym.Env):
         """
         # TODO: Make it start a new battle.
 
-    def seed(self, seed)
-    def _make_move(self, move):
+    def seed(self, seed):
+        """
+        """
+        # TODO MAYBEEeeeeeeeeEE
+
+    def act(self, move):
         """
         """
         return
     
-    def _get_state(self):
+    def get_state(self):
         """
         """
         # TODO

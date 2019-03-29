@@ -57,12 +57,12 @@ async def message_handler(ws):
                 assertion = request_login(chall_token)
                 await say(ws, "/trn {},0,{}".format(USERNAME, assertion))
 
-            if data[1] == "updateuser" and data[2] == USERNAME:
+            elif data[1] == "updateuser" and data[2] == USERNAME:
                 print(">> Sucessfully logged in as: " + USERNAME)
                 if MODE == "1":
                     await challenge(ws, CHALLENGER, "gen7randombattle")
 
-            if data[1] == "updatechallenges":
+            elif data[1] == "updatechallenges":
                 chall_users = json.loads(data[2])
                 chall_from = chall_users["challengesFrom"]
                 chall_to = chall_users["challengeTo"]
@@ -70,13 +70,14 @@ async def message_handler(ws):
                     print(">> Challenged by: {} to {}".format(users, chall_from[users]))
                     await say(ws, "/accept {}".format(users))
 
-            if "battle" in data[0]:
+            elif "battle" in data[0]:
                 await battle_parser(ws, msg) # Battle starts and is sent to the parser.
 
-            if data[1] == "queryresponse":
+            elif data[1] == "queryresponse":
                 if data[2] == "savereplay": # Save a copy of the replay for viewing purposes.
                     replay_data = json.loads("|".join(data[3:]))
                     get_replay(replay_data["log"], replay_data["id"])
+
 
 if __name__ == "__main__":
     if len(sys.argv) != 1 and len(sys.argv) != 4:
