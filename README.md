@@ -1,4 +1,4 @@
-Soft-Boiled Showdown Bot
+# Soft-Boiled Showdown Bot
 
 A Pokemon Showdown battle bot trained using reinforcement learning.
 ![](http://play.pokemonshowdown.com/sprites/xyani/chansey.gif "Chansey")
