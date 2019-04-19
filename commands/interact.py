@@ -19,13 +19,13 @@ async def challenge(ws, user, mode="gen7randombattle"):
     print(msg)
     await say(ws, msg)
 
-async def makemove(ws, tag, move, turns):
+async def makemove(ws, tag, move):
     """
     """
     msg = "/choose move {}".format(move)
     await say(ws, msg, tag)
 
-async def makeswitch(ws, tag, switch, turns):
+async def makeswitch(ws, tag, switch):
     """
     """
     msg = "/choose switch {}".format(switch)

@@ -15,6 +15,8 @@ PASSWORD = "snowsnow123"
 MODE = "0" # Mode 0 doesn't do anything. Mode 1 challenges CHALLENGER to a battle.
 CHALLENGER = "snowbot_1"
 
+battle_list = []
+
 async def hello():
     """
     Connects to Showdown websocket and handles messages being sent.

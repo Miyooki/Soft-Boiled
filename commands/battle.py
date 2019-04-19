@@ -1,25 +1,16 @@
 from commands.interact import say, leaveroom
 from training.random import random_move, random_switch
 import json
+import re
 
-class Mew:
-    """
-    """
-    def __init__(self):
-        self.turns = 0
-        self.my_team = None
-        self.enemy_team = None
-        self.current_pkm = None
-        self.player_id = ""
-        self.weather = ""
-        self.screens = {
-            "lightscreen": False,
-            "reflect": False,
-            "aurora-veil": False
-        }
+# Regex for parsing data sent from server.
+request_regex = re.compile(r"\|request\|(.+?)$") # Get REQUEST json data.
+playerid_regex = re.compile(r"\|player\|(.+?)\|(.+?)\|") # Get the Player ID and name.
+
 
 # Global Variables
 PLAYER_ID = None
+PLAYER_NAME = None
 CURRENT_POKE = None
 TAG_CONFIRM = None
 POKE_TEAM = []
@@ -31,8 +22,7 @@ async def battle_parser(ws, msg):
     """
     Parses through all battle text and decides on what to do.
     """
-    global PLAYER_ID, CURRENT_POKE, TAG_CONFIRM, POKE_TEAM, POKE_ALIVE, ALL_MOVES, USABLE_MOVES
-    turns = 0 # Fix turns.
+    global PLAYER_ID, PLAYER_NAME, CURRENT_POKE, TAG_CONFIRM, POKE_TEAM, POKE_ALIVE, ALL_MOVES, USABLE_MOVES
     msg = msg.splitlines()
     tag = msg[0].split("|")[0][1:] # Get the battle tag ID.
     if TAG_CONFIRM == None: 
@@ -63,9 +53,9 @@ async def battle_parser(ws, msg):
                 if "forceSwitch" in battle_data:
                     POKE_ALIVE.remove(CURRENT_POKE)
                     if battle_data["side"]["pokemon"][0]["condition"] == "0 fnt": # Current Pokemon fainted.
-                        await random_switch(ws, POKE_ALIVE, tag, turns)
+                        await random_switch(ws, POKE_ALIVE, tag)
                     else:
-                        await random_switch(ws, POKE_ALIVE, tag, turns) # Current Pokemon got switched out.
+                        await random_switch(ws, POKE_ALIVE, tag) # Current Pokemon got switched out.
                         POKE_ALIVE.append(CURRENT_POKE)
 
                 if "active" in battle_data: # Get non-disabled moves.
@@ -75,7 +65,7 @@ async def battle_parser(ws, msg):
                             USABLE_MOVES.append(move["id"])
 
         elif state[1] == "turn":
-            await random_move(ws, USABLE_MOVES, tag, turns) # Testing with random moves.
+            await random_move(ws, USABLE_MOVES, tag) # Testing with random moves.
 
         elif state[1] == "win":
             await say(ws, "ggwp c:", tag)
@@ -83,7 +73,7 @@ async def battle_parser(ws, msg):
             await leaveroom(ws, tag)
 
         elif state[1] == "error":
-            await random_move(ws, tag, turns) # Ghetto fix for now.
+            await random_move(ws, USABLE_MOVES, tag) # Ghetto fix for now.
 
         elif state[1] == "c": 
             # A message was sent or received.

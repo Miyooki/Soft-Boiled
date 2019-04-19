@@ -10,18 +10,15 @@ import json
 class PokeEnv(gym.Env):
 
     metadata = ({"render.modes": ["human"]})
-    ACTIONS = ["Move1", "Move2", "Move3", "Move4",
-                "Mega-Move1", "Mega-Move2", "Mega-Move3", "Mega-Move4",
-                "Z-Move1", "Z-Move2", "Z-Move3", "Z-Move4",
-                "Switch1", "Switch2", "Switch3", "Switch4", "Switch5"]
 
     def __init__(self):
         """
         """
         logging.info("---Soft-Boiled v0.0.1---")
+        action_space = self.get_action_state()
         self.current_step = -1
 
-        self.action_space = spaces.Discrete(len(ACTIONS)) # Number of possible actions.
+        self.action_space = spaces.Discrete() # Number of possible actions.
         self.observation_space = spaces.Dict({
             "self_health":spaces.Box([0.0], [100.0], )
         })
@@ -48,8 +45,12 @@ class PokeEnv(gym.Env):
         self.current_step += 1
         self.
 
+        self.act(action)
         remaining_steps = 0
-        return
+        reward = self.reward
+        ob = self.env.getState()
+        info = {}
+        return (ob, reward, done, info)
     
     def reset(self):
         """
@@ -59,17 +60,30 @@ class PokeEnv(gym.Env):
     def seed(self, seed):
         """
         """
-        # TODO MAYBEEeeeeeeeeEE
+        self.seed = seeding.np_random(seed)
+        return [seed]
 
     def act(self, move):
         """
         """
         return
     
+    def get_reward(self):
+        """
+        """
+        # TODO
+        
     def get_state(self):
         """
         """
         # TODO
+
+    def get_action_state(self, request):
+        """
+        """
+        action_space = []
+
+        action_space.append()
 
     def render(self, mode="human", close=False):
         """

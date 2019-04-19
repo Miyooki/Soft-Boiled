@@ -7,10 +7,16 @@ step() accepts actions and returns four values:
 define an action space and an observation space
 
 observation space may include:
-- self pokemon hp
+- self current hp
 - self party pokemon hp
+- self pokemon id (one hot)
+- self moves id (one hot)
+
 - opponent current hp
 - opponent party pokemon hp
+- opponent pokemon id (one hot) (start off as blank, but observation space increases as it obtains more info)
+- opponent moves id (one hot) (movesets from database, observation space decreases as it obtains more info)
+
 
 
 define the reward (win is 1, loss is 0?)
@@ -29,3 +35,7 @@ action space:
 - 5 switches (assuming using 6 pokemons)
 - 1 mega (can combine with moves x 4)
 - 1 z-move (can combine with moves x 4)
+
+
+login info:
+1 snowbot_2 snowsnow123
